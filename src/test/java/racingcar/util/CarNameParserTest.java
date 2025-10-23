@@ -19,7 +19,7 @@ public class CarNameParserTest {
 
     @Test
     @DisplayName("입력 문자열에 공백이 포함되어 있으면 제거 후 분리한다.")
-    void TrimAndSplitByComma() {
+    void trimAndSplitByComma() {
         String input = " pobi,woni ,   jun   ";
 
         String[] result = CarNameParser.splitCarName(input);

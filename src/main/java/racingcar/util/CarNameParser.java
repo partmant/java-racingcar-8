@@ -1,15 +1,15 @@
 package racingcar.util;
 
+import java.util.Arrays;
+
 public class CarNameParser {
 
+    private CarNameParser() {
+    }
+
     public static String[] splitCarName(String input) {
-
-        String[] carNames = input.split(",");
-
-        for (int i = 0; i < carNames.length; i++) {
-            carNames[i] = carNames[i].trim();
-        }
-
-        return carNames;
+        return Arrays.stream(input.split(","))
+                .map(String::trim)
+                .toArray(String[]::new);
     }
 }
