@@ -11,18 +11,30 @@ public class CarNameValidator {
     }
 
     public static void validate(String[] carNames) {
+        validateNotEmpty(carNames);
+        validateDuplicateNames(carNames);
+        validateEachName(carNames);
+    }
+
+    private static void validateNotEmpty(String[] carNames) {
         if (carNames == null || carNames.length == 0) {
             throw new IllegalArgumentException("입력은 비어 있을 수 없습니다.");
         }
+    }
 
+    private static void validateDuplicateNames(String[] carNames) {
         Set<String> uniqueNames = new HashSet<>();
 
         for (String name : carNames) {
-            validateSingleName(name);
-
             if (!uniqueNames.add(name)) {
                 throw new IllegalArgumentException("중복된 자동차 이름이 존재합니다.");
             }
+        }
+    }
+
+    private static void validateEachName(String[] carNames) {
+        for (String name : carNames) {
+            validateSingleName(name);
         }
     }
 
@@ -30,11 +42,9 @@ public class CarNameValidator {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("자동차 이름은 비어 있을 수 없습니다.");
         }
-
         if (name.isBlank()) {
             throw new IllegalArgumentException("자동차 이름은 공백일 수 없습니다.");
         }
-
         if (name.length() > MAX_NAME_LENGTH) {
             throw new IllegalArgumentException("자동차 이름은 5자 이하만 가능합니다.");
         }
