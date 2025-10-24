@@ -9,19 +9,34 @@ public class AttemptCountValidator {
     }
 
     public static void validate(String input) {
+        validateNull(input);
+        validateEmpty(input);
+
+        int attemptCount = parseInteger(input);
+        validateRange(attemptCount);
+    }
+
+    private static void validateNull(String input) {
         if (input == null) {
-            throw new IllegalArgumentException("이동 횟수는 null일 수 없습니다.");
+            throw new IllegalArgumentException("입력은 null일 수 없습니다.");
         }
+    }
+
+    private static void validateEmpty(String input) {
         if (input.isEmpty()) {
             throw new IllegalArgumentException("입력은 비어 있을 수 없습니다.");
         }
+    }
 
-        int attemptCount;
+    private static int parseInteger(String input) {
         try {
-            attemptCount = Integer.parseInt(input);
+            return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("이동 횟수는 숫자여야 합니다.");
         }
+    }
+
+    private static void validateRange(int attemptCount) {
         if (attemptCount < MIN_ATTEMPT_COUNT) {
             throw new IllegalArgumentException("이동 횟수는 1 이상의 정수여야 합니다.");
         }
