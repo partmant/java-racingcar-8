@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 public class CarNameParserTest {
 
     @Test
@@ -12,7 +14,7 @@ public class CarNameParserTest {
     void splitByComma() {
         String input = "pobi,woni,jun";
 
-        String[] result = CarNameParser.splitCarName(input);
+        List<String> result = CarNameParser.splitCarName(input);
 
         assertThat(result).containsExactly("pobi", "woni", "jun");
     }
@@ -22,7 +24,7 @@ public class CarNameParserTest {
     void trimAndSplitByComma() {
         String input = " pobi,woni ,   jun   ";
 
-        String[] result = CarNameParser.splitCarName(input);
+        List<String> result = CarNameParser.splitCarName(input);
 
         assertThat(result).containsExactly("pobi", "woni", "jun");
     }
