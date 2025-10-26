@@ -13,53 +13,47 @@ import java.util.List;
 
 public class RacingController {
 
-    private final InputView inputView;
-    private final OutputView outputView;
     private final RacingService racingService;
 
-    public RacingController(InputView inputView, OutputView outputView, RacingService racingService) {
-        this.inputView = inputView;
-        this.outputView = outputView;
+    private RacingController(RacingService racingService) {
         this.racingService = racingService;
+    }
+
+    public static RacingController of(RacingService racingService) {
+        return new RacingController(racingService);
     }
 
     public void run() {
         Cars cars = initializeCars();
         int attemptCount = readAttemptCount();
-
         executeRaceRounds(cars, attemptCount);
         displayFinalResults(cars);
     }
 
     private Cars initializeCars() {
-        String inputNames = inputView.readCarNames();
+        List<String> carNames = readCarNames();
+        return Cars.create(carNames);
+    }
+
+    private List<String> readCarNames() {
+        String inputNames = InputView.readCarNames();
         List<String> carNames = CarNameParser.splitCarName(inputNames);
         CarNameValidator.validate(carNames);
-
-        List<Car> carList = carNames.stream()
-                .map(Car::new)
-                .toList();
-
-        return new Cars(carList);
+        return carNames;
     }
 
     private int readAttemptCount() {
-        String inputAttempt = inputView.readAttemptCount();
+        String inputAttempt = InputView.readAttemptCount();
         return AttemptCountValidator.validate(inputAttempt);
     }
 
     private void executeRaceRounds(Cars cars, int attemptCount) {
-        outputView.appendResultMessage();
-
-        for (int round = 0; round < attemptCount; round++) {
-            racingService.startRace(cars, 1);
-            outputView.appendRoundResult(cars.getCarNames(), cars.getPositions());
-        }
+        OutputView.printResultMessage();
+        racingService.startRace(cars, attemptCount);
+        OutputView.printRoundResult(cars.getCarNames(), cars.getPositions());
     }
 
     private void displayFinalResults(Cars cars) {
-        List<String> winners = cars.getWinners();
-        outputView.appendWinners(winners);
-        outputView.printAll();
+        OutputView.printWinners(cars.getWinners());
     }
 }
