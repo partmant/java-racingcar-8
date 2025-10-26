@@ -28,7 +28,7 @@ class RaceTest {
 
     @Test
     @DisplayName("모든 자동차가 이동 조건을 만족하면 모두 전진한다")
-    void allCarsMoveWhenNumberIsAtLeastThreshold() {
+    void 모든_자동차가_이동_조건을_만족하면_모두_전진한다() {
         List<Car> cars = Arrays.asList(new TestCar("pobi"), new TestCar("woni"));
         NumberGenerator generator = new FixedNumberGenerator(4);
         Race race = new Race(generator);
@@ -42,7 +42,7 @@ class RaceTest {
 
     @Test
     @DisplayName("모든 자동차가 이동 조건을 만족하지 않으면 모두 정지한다")
-    void allCarsDoNotMoveWhenNumberIsBelowThreshold() {
+    void 모든_자동차가_이동_조건을_만족하지_않으면_모두_정지한다() {
         List<Car> cars = Arrays.asList(new TestCar("pobi"), new TestCar("woni"), new TestCar("jun"));
         NumberGenerator generator = new FixedNumberGenerator(3);
         Race race = new Race(generator);

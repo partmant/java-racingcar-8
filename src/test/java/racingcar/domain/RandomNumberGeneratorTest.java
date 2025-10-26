@@ -14,7 +14,7 @@ class RandomNumberGeneratorTest {
 
     @DisplayName("랜덤 숫자는 0 이상 9 이하의 범위에서 생성되어야 한다.")
     @RepeatedTest(100)
-    void numberIsWithinRangeWhenGenerated() {
+    void 랜덤_숫자가_0_이상_9_이하의_범위에서_생성된다() {
         int number = generator.generate();
 
             assertThat(number)
