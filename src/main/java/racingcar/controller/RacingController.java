@@ -1,6 +1,5 @@
 package racingcar.controller;
 
-import racingcar.domain.Car;
 import racingcar.domain.Cars;
 import racingcar.service.RacingService;
 import racingcar.util.AttemptCountValidator;
@@ -49,7 +48,13 @@ public class RacingController {
 
     private void executeRaceRounds(Cars cars, int attemptCount) {
         OutputView.printResultMessage();
-        racingService.startRace(cars, attemptCount);
+        for (int i = 0; i < attemptCount; i++) {
+            playSingleRound(cars);
+        }
+    }
+
+    private void playSingleRound(Cars cars) {
+        racingService.startRound(cars);
         OutputView.printRoundResult(cars.getCarNames(), cars.getPositions());
     }
 

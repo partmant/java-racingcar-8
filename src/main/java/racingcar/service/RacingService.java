@@ -11,9 +11,7 @@ public class RacingService {
         this.race = race;
     }
 
-    public void startRace(Cars cars, int attemptCount) {
-        for (int i = 0; i < attemptCount; i++) {
-            race.moveAllCars(cars.getCarsList());
-        }
+    public void startRound(Cars cars) {
+        race.moveAllCars(cars.getCarsList());
     }
 }
