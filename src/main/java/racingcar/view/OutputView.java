@@ -6,15 +6,15 @@ public final class OutputView {
 
     private OutputView() {}
 
-    public static void printResultMessage() {
-        System.out.print(OutputMessageFormatter.buildResultMessage());
+    public static void printResultHeader() {
+        System.out.print(OutputMessageFormatter.formatResultTitle());
     }
 
     public static void printRoundResult(List<String> carNames, List<Integer> positions) {
-        System.out.print(OutputMessageFormatter.buildRoundResult(carNames, positions));
+        System.out.print(ResultMessageAssembler.assembleRoundResult(carNames, positions));
     }
 
-    public static void printWinners(List<String> winnerNames) {
-        System.out.print(OutputMessageFormatter.buildWinners(winnerNames));
+    public static void printFinalWinners(List<String> winnerNames) {
+        System.out.print(ResultMessageAssembler.assembleFinalWinners(winnerNames));
     }
 }

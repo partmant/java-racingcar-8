@@ -47,7 +47,7 @@ public class RacingController {
     }
 
     private void executeRaceRounds(Cars cars, int attemptCount) {
-        OutputView.printResultMessage();
+        OutputView.printResultHeader();
         for (int i = 0; i < attemptCount; i++) {
             playSingleRound(cars);
         }
@@ -59,6 +59,6 @@ public class RacingController {
     }
 
     private void displayFinalResults(Cars cars) {
-        OutputView.printWinners(cars.getWinners());
+        OutputView.printFinalWinners(cars.getWinners());
     }
 }
