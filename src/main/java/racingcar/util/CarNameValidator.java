@@ -1,6 +1,7 @@
 package racingcar.util;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class CarNameValidator {
@@ -13,21 +14,21 @@ public class CarNameValidator {
     private CarNameValidator() {
     }
 
-    public static void validate(String[] carNames) {
+    public static void validate(List<String> carNames) {
         validateNotEmpty(carNames);
         validateCount(carNames);
         validateDuplicateNames(carNames);
         validateEachName(carNames);
     }
 
-    private static void validateNotEmpty(String[] carNames) {
-        if (carNames == null || carNames.length == 0) {
+    private static void validateNotEmpty(List<String> carNames) {
+        if (carNames == null || carNames.isEmpty()) {
             throw new IllegalArgumentException("입력은 비어 있을 수 없습니다.");
         }
     }
 
-    private static void validateCount(String[] carNames) {
-        int carCount = carNames.length;
+    private static void validateCount(List<String> carNames) {
+        int carCount = carNames.size();
         if (carCount < MIN_CAR_COUNT) {
             throw new IllegalArgumentException("자동차 수는 2개 이상이어야 합니다.");
         }
@@ -36,7 +37,7 @@ public class CarNameValidator {
         }
     }
 
-    private static void validateDuplicateNames(String[] carNames) {
+    private static void validateDuplicateNames(List<String> carNames) {
         Set<String> uniqueNames = new HashSet<>();
 
         for (String name : carNames) {
@@ -46,7 +47,7 @@ public class CarNameValidator {
         }
     }
 
-    private static void validateEachName(String[] carNames) {
+    private static void validateEachName(List<String> carNames) {
         for (String name : carNames) {
             validateSingleName(name);
         }
