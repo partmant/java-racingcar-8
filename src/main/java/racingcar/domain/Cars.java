@@ -11,6 +11,13 @@ public class Cars {
         this.cars = List.copyOf(cars);
     }
 
+    public static Cars create(List<String> carNames) {
+        List<Car> carList = carNames.stream()
+                .map(Car::new)
+                .toList();
+        return new Cars(carList);
+    }
+
     private int findMaxPosition() {
         return cars.stream()
                 .mapToInt(Car::getPosition)
