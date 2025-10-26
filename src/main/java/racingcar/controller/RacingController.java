@@ -49,17 +49,17 @@ public class RacingController {
     }
 
     private void executeRaceRounds(Cars cars, int attemptCount) {
-        outputView.printResultMessage();
+        outputView.appendResultMessage();
 
         for (int round = 0; round < attemptCount; round++) {
             racingService.startRace(cars, 1);
-            outputView.printRoundResult(cars.getCarNames(), cars.getPositions());
+            outputView.appendRoundResult(cars.getCarNames(), cars.getPositions());
         }
     }
 
     private void displayFinalResults(Cars cars) {
         List<String> winners = cars.getWinners();
-        outputView.printWinners(winners);
-        System.out.print(outputView.getOutputResult());
+        outputView.appendWinners(winners);
+        outputView.printAll();
     }
 }

@@ -1,7 +1,6 @@
 package racingcar.view;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class OutputView {
 
@@ -10,25 +9,26 @@ public class OutputView {
 
     private final StringBuilder outputBuilder = new StringBuilder();
 
-    public void printResultMessage() {
+    public void appendResultMessage() {
         outputBuilder.append("\n실행 결과\n");
     }
 
-    public void printRoundResult(List<String> carNames, List<Integer> positions) {
-        IntStream.range(0, carNames.size())
-                .forEach(i -> {
-                    String line = carNames.get(i) + " : " + DISTANCE_SYMBOL.repeat(positions.get(i)) + "\n";
-                    outputBuilder.append(line);
-                });
+    public void appendRoundResult(List<String> carNames, List<Integer> positions) {
+        for (int i = 0; i < carNames.size(); i++) {
+            outputBuilder.append(carNames.get(i))
+                    .append(" : ")
+                    .append(DISTANCE_SYMBOL.repeat(positions.get(i)))
+                    .append("\n");
+        }
         outputBuilder.append("\n");
     }
 
-    public void printWinners(List<String> winnerNames) {
+    public void appendWinners(List<String> winnerNames) {
         String winners = String.join(WINNER_SEPARATOR, winnerNames);
-        outputBuilder.append("최종 우승자 : ").append(winners);
+        outputBuilder.append("최종 우승자 : ").append(winners).append("\n");
     }
 
-    public String getOutputResult() {
-        return outputBuilder.toString();
+    public void printAll() {
+        System.out.print(outputBuilder.toString());
     }
 }
