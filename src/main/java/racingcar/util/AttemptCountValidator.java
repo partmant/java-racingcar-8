@@ -8,12 +8,14 @@ public class AttemptCountValidator {
     private AttemptCountValidator() {
     }
 
-    public static void validate(String input) {
+    public static int validate(String input) {
         validateNull(input);
         validateEmpty(input);
 
         int attemptCount = parseInteger(input);
         validateRange(attemptCount);
+
+        return attemptCount;
     }
 
     private static void validateNull(String input) {
