@@ -1,6 +1,7 @@
 package racingcar.util;
 
 import static org.assertj.core.api.Assertions.*;
+import static racingcar.exception.ErrorMessages.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,9 +9,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 class CarNameValidatorTest {
-
-    private static final String BELOW_MIN_COUNT_ERROR_MESSAGE = "자동차 수는 2개 이상이어야 합니다.";
-    private static final String ABOVE_MAX_COUNT_ERROR_MESSAGE = "자동차 수는 10개 이하여야 합니다.";
 
     @Test
     @DisplayName("모든 자동차 이름이 유효하면 통과한다")
@@ -46,7 +44,7 @@ class CarNameValidatorTest {
 
         assertThatThrownBy(() -> CarNameValidator.validate(carNames))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(BELOW_MIN_COUNT_ERROR_MESSAGE);
+                .hasMessageContaining(CAR_COUNT_BELOW_MIN_ERROR_MESSAGE);
     }
 
     @Test
@@ -56,7 +54,7 @@ class CarNameValidatorTest {
 
         assertThatThrownBy(() -> CarNameValidator.validate(carNames))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(ABOVE_MAX_COUNT_ERROR_MESSAGE);
+                .hasMessageContaining(CAR_COUNT_ABOVE_MAX_ERROR_MESSAGE);
     }
 
     @Test
@@ -66,7 +64,7 @@ class CarNameValidatorTest {
 
         assertThatThrownBy(() -> CarNameValidator.validate(names))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("자동차 이름은 5자 이하만 가능합니다.");
+                .hasMessageContaining(LENGTH_EXCEEDED_ERROR_MESSAGE);
     }
 
     @Test
@@ -76,7 +74,7 @@ class CarNameValidatorTest {
 
         assertThatThrownBy(() -> CarNameValidator.validate(names))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("중복된 자동차 이름이 존재합니다.");
+                .hasMessageContaining(DUPLICATE_NAME_ERROR_MESSAGE);
     }
 
     @Test
@@ -86,7 +84,7 @@ class CarNameValidatorTest {
 
         assertThatThrownBy(() -> CarNameValidator.validate(names))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("입력은 비어 있을 수 없습니다.");
+                .hasMessageContaining(EMPTY_INPUT_ERROR_MESSAGE);
     }
 
     @Test
@@ -96,7 +94,7 @@ class CarNameValidatorTest {
 
         assertThatThrownBy(() -> CarNameValidator.validate(names))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("자동차 이름은 비어 있을 수 없습니다.");
+                .hasMessageContaining(EMPTY_NAME_ERROR_MESSAGE);
     }
 
     @Test
@@ -106,6 +104,6 @@ class CarNameValidatorTest {
 
         assertThatThrownBy(() -> CarNameValidator.validate(names))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("자동차 이름은 공백일 수 없습니다.");
+                .hasMessageContaining(BLANK_NAME_ERROR_MESSAGE);
     }
 }

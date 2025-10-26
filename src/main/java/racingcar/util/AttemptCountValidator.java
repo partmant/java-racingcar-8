@@ -1,5 +1,7 @@
 package racingcar.util;
 
+import static racingcar.exception.ErrorMessages.*;
+
 public class AttemptCountValidator {
 
     private static final int MIN_ATTEMPT_COUNT = 1;
@@ -20,13 +22,13 @@ public class AttemptCountValidator {
 
     private static void validateNull(String input) {
         if (input == null) {
-            throw new IllegalArgumentException("입력은 null일 수 없습니다.");
+            throw new IllegalArgumentException(NULL_INPUT_ERROR_MESSAGE);
         }
     }
 
     private static void validateEmpty(String input) {
         if (input.isEmpty()) {
-            throw new IllegalArgumentException("입력은 비어 있을 수 없습니다.");
+            throw new IllegalArgumentException(EMPTY_INPUT_ERROR_MESSAGE);
         }
     }
 
@@ -34,16 +36,16 @@ public class AttemptCountValidator {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("이동 횟수는 숫자여야 합니다.");
+            throw new IllegalArgumentException(ATTEMPT_NOT_NUMERIC_ERROR_MESSAGE);
         }
     }
 
     private static void validateRange(int attemptCount) {
         if (attemptCount < MIN_ATTEMPT_COUNT) {
-            throw new IllegalArgumentException("이동 횟수는 1 이상의 정수여야 합니다.");
+            throw new IllegalArgumentException(ATTEMPT_BELOW_MIN_ERROR_MESSAGE);
         }
         if (attemptCount > MAX_ATTEMPT_COUNT) {
-            throw new IllegalArgumentException("이동 횟수는 10 이하의 정수여야 합니다.");
+            throw new IllegalArgumentException(ATTEMPT_ABOVE_MAX_ERROR_MESSAGE);
         }
     }
 }
