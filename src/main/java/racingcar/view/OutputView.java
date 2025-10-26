@@ -6,6 +6,7 @@ import java.util.stream.IntStream;
 public class OutputView {
 
     private static final String DISTANCE_SYMBOL = "-";
+    private static final String WINNER_SEPARATOR = ", ";
 
     private final StringBuilder outputBuilder = new StringBuilder();
 
@@ -20,6 +21,11 @@ public class OutputView {
                     outputBuilder.append(line);
                 });
         outputBuilder.append("\n");
+    }
+
+    public void printWinners(List<String> winnerNames) {
+        String winners = String.join(WINNER_SEPARATOR, winnerNames);
+        outputBuilder.append("최종 우승자 : ").append(winners);
     }
 
     public String getOutputResult() {
