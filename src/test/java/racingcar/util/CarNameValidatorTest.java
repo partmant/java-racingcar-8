@@ -84,7 +84,7 @@ class CarNameValidatorTest {
 
         assertThatThrownBy(() -> CarNameValidator.validate(names))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(EMPTY_INPUT_ERROR_MESSAGE);
+                .hasMessageContaining(NULL_INPUT_ERROR_MESSAGE);
     }
 
     @Test
