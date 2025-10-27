@@ -2,63 +2,31 @@ package racingcar.controller;
 
 import racingcar.domain.Cars;
 import racingcar.service.RacingService;
-import racingcar.util.AttemptCountValidator;
-import racingcar.util.CarNameParser;
-import racingcar.util.CarNameValidator;
-import racingcar.view.InputView;
-import racingcar.view.OutputView;
-
-import java.util.List;
+import racingcar.io.InputHandler;
+import racingcar.io.OutputHandler;
 
 public class RacingController {
 
-    private final RacingService racingService;
+    private final InputHandler inputHandler;
+    private final OutputHandler outputHandler;
+    private final RaceManager raceManager;
 
-    private RacingController(RacingService racingService) {
-        this.racingService = racingService;
+    private RacingController(InputHandler inputHandler, OutputHandler outputHandler, RaceManager raceManager) {
+        this.inputHandler = inputHandler;
+        this.outputHandler = outputHandler;
+        this.raceManager = raceManager;
     }
 
     public static RacingController of(RacingService racingService) {
-        return new RacingController(racingService);
+        InputHandler inputHandler = new InputHandler();
+        OutputHandler outputHandler = new OutputHandler();
+        RaceManager raceManager = new RaceManager(racingService, outputHandler);
+        return new RacingController(inputHandler, outputHandler, raceManager);
     }
 
     public void run() {
-        Cars cars = initializeCars();
-        int attemptCount = readAttemptCount();
-        executeRaceRounds(cars, attemptCount);
-        displayFinalResults(cars);
-    }
-
-    private Cars initializeCars() {
-        List<String> carNames = readCarNames();
-        return Cars.create(carNames);
-    }
-
-    private List<String> readCarNames() {
-        String inputNames = InputView.readCarNames();
-        List<String> carNames = CarNameParser.splitCarName(inputNames);
-        CarNameValidator.validate(carNames);
-        return carNames;
-    }
-
-    private int readAttemptCount() {
-        String inputAttempt = InputView.readAttemptCount();
-        return AttemptCountValidator.validate(inputAttempt);
-    }
-
-    private void executeRaceRounds(Cars cars, int attemptCount) {
-        OutputView.printResultHeader();
-        for (int i = 0; i < attemptCount; i++) {
-            playSingleRound(cars);
-        }
-    }
-
-    private void playSingleRound(Cars cars) {
-        racingService.startRound(cars);
-        OutputView.printRoundResult(cars.getCarNames(), cars.getPositions());
-    }
-
-    private void displayFinalResults(Cars cars) {
-        OutputView.printFinalWinners(cars.getWinners());
+        Cars cars = inputHandler.getCarsFromUser();
+        int attemptCount = inputHandler.getAttemptCountFromUser();
+        raceManager.runRace(cars, attemptCount);
     }
 }
