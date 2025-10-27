@@ -2,7 +2,7 @@ package racingcar.util;
 
 import static racingcar.exception.ErrorMessages.*;
 
-public class AttemptCountValidator {
+public final class AttemptCountValidator {
 
     private static final int MIN_ATTEMPT_COUNT = 1;
     private static final int MAX_ATTEMPT_COUNT = 10;
